@@ -3,6 +3,8 @@ class Blog_model extends CI_Model
 {
     public function getBlogs()
     {
+        $filter = $this->input->get('find');
+        $this->db->like('title', $filter);
         $query = $this->db->get("blog");
         return $query->result_array();
     }
@@ -23,6 +25,12 @@ class Blog_model extends CI_Model
         $this->db->update('blog', $post);
         return $this->db->affected_rows();
     }
+    public function deleteBlog ($id)
+        {
+            $this->db->where('id', $id);
+            $this->db->delete('blog');
+            return $this->db->affected_rows();
+        }
 }
 
 ?>
